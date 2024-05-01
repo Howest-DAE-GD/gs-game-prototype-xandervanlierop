@@ -1,5 +1,7 @@
 #pragma once
 #include "BaseGame.h"
+#include "Player.h"
+#include "Villain.h"
 class Game : public BaseGame
 {
 public:
@@ -27,4 +29,8 @@ private:
 	void Initialize();
 	void Cleanup( );
 	void ClearBackground( ) const;
+
+	Player* player{};
+	Villain* villain{};
+
 };

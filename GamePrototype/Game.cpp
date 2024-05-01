@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "Game.h"
+#include "utils.h"
+#include <iostream>
 
 Game::Game( const Window& window ) 
 	:BaseGame{ window }
@@ -12,23 +14,49 @@ Game::~Game( )
 	Cleanup( );
 }
 
-void Game::Initialize( )
+void Game::Initialize()
 {
-	
+	player = new Player();
+	villain = new Villain();
 }
 
 void Game::Cleanup( )
 {
+	
+	delete player;
+	delete villain;
 }
 
 void Game::Update( float elapsedSec )
 {
 	// Check keyboard state
-	//const Uint8 *pStates = SDL_GetKeyboardState( nullptr );
-	//if ( pStates[SDL_SCANCODE_RIGHT] )
-	//{
-	//	std::cout << "Right arrow key is down\n";
-	//}
+	const Uint8 *pStates = SDL_GetKeyboardState( nullptr );
+
+
+
+	if (pStates[SDL_SCANCODE_UP])
+	{
+		player->UpdateUp(elapsedSec);
+	}
+	if (pStates[SDL_SCANCODE_DOWN])
+	{
+		player->UpdateDown(elapsedSec);
+	}
+	if ( pStates[SDL_SCANCODE_RIGHT] )
+	{
+		player->UpdateRight(elapsedSec);
+	}
+	if (pStates[SDL_SCANCODE_LEFT])
+	{
+		player->UpdateLeft(elapsedSec);
+	}
+
+	if (player->CheckHit(villain->g_Villain))
+	{
+		delete villain;
+	}
+
+
 	//if ( pStates[SDL_SCANCODE_LEFT] && pStates[SDL_SCANCODE_UP])
 	//{
 	//	std::cout << "Left and up arrow keys are down\n";
@@ -37,7 +65,13 @@ void Game::Update( float elapsedSec )
 
 void Game::Draw( ) const
 {
-	ClearBackground( );
+	ClearBackground();
+
+	villain->Draw();
+
+	player->Draw();
+
+	
 }
 
 void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
