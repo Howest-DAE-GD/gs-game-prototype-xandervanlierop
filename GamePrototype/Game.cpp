@@ -35,7 +35,6 @@ void Game::Cleanup( )
 {
 	
 	delete player;
-	delete villain;
 
 	delete wall1;
 	delete wall2;
