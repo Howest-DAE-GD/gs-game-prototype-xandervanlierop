@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Game.h"
 #include "utils.h"
+#include "Walls.h"
 #include <iostream>
 
 Game::Game( const Window& window ) 
@@ -18,6 +19,16 @@ void Game::Initialize()
 {
 	player = new Player();
 	villain = new Villain();
+
+	wall1 = new Walls(Rectf{ 50.f,90.f,100.f,30.f });
+	wall2 = new Walls(Rectf{ 300.f,200.f,300.f,30.f });
+	wall3 = new Walls(Rectf{ 200.f,300.f,40.f,100.f });
+	wall4 = new Walls(Rectf{ 500.f,400.f,400.f,60.f });
+	wall5 = new Walls(Rectf{ 403.f,45.f,50.f,100.f });
+	wall6 = new Walls(Rectf{ 700.f,100.f,30.f,200.f });
+	wall7 = new Walls(Rectf{ 750.f,500.f,50.f,200.f});
+	wall8 = new Walls(Rectf{ 900.f,250.f,50.f,300.f});
+	
 }
 
 void Game::Cleanup( )
@@ -25,6 +36,16 @@ void Game::Cleanup( )
 	
 	delete player;
 	delete villain;
+
+	delete wall1;
+	delete wall2;
+	delete wall3;
+	delete wall4;
+	delete wall5;
+	delete wall6;
+	delete wall7;
+	delete wall8;
+	
 }
 
 void Game::Update( float elapsedSec )
@@ -66,11 +87,21 @@ void Game::Update( float elapsedSec )
 void Game::Draw( ) const
 {
 	ClearBackground();
+	utils::SetColor(m_RectColor);
+	utils::DrawRect(50, 30, 1180, 740);
 
 	villain->Draw();
 
 	player->Draw();
-
+	
+	wall1->Draw();
+	wall2->Draw();
+	wall3->Draw();
+	wall4->Draw();
+	wall5->Draw();
+	wall6->Draw();
+	wall7->Draw();
+	wall8->Draw();
 	
 }
 

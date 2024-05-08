@@ -24,8 +24,7 @@ bool Player::CheckHit(const Circlef enemy)
 
 void Player::Draw()
 {
-	utils::SetColor(m_RectColor);
-	utils::DrawRect(50, 30, 1180, 740);
+	
 	utils::SetColor(m_Color);
 	utils::FillEllipse(m_Player.center.x, m_Player.center.y, m_Player.radius, m_Player.radius);
 }

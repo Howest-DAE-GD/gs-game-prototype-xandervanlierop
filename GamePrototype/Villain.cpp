@@ -4,7 +4,8 @@
 
 Villain::Villain()
 {
-
+	g_Villain.center = m_SpawnPos;
+	g_Villain.radius = 20;
 }
 
 Villain::~Villain()
