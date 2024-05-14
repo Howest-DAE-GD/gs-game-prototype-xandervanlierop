@@ -4,8 +4,8 @@
 
 Villain::Villain()
 {
-	g_Villain.center = m_SpawnPos;
-	g_Villain.radius = 20;
+	m_Villain.center = m_SpawnPos;
+	m_Villain.radius = 20;
 }
 
 Villain::~Villain()
@@ -15,9 +15,14 @@ Villain::~Villain()
 void Villain::Draw()
 {
 	utils::SetColor(m_Color);
-	utils::FillEllipse(m_SpawnPos, g_Villain.radius, g_Villain.radius);
+	utils::FillEllipse(m_SpawnPos, m_Villain.radius, m_Villain.radius);
 }
 
 void Villain::Update()
 {
+}
+
+Circlef Villain::GetHitbox()
+{
+	return Circlef(m_Villain);
 }

@@ -26,4 +26,10 @@ void Walls::Draw()
 
 void Walls::CheckHit()
 {
+
+}
+
+Rectf Walls::GetHitbox()
+{
+	return Rectf(m_WallRange);
 }

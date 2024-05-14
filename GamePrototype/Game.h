@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Villain.h"
 #include "Walls.h"
+#include "ScorePoint.h"
 #include <vector>
 class Game : public BaseGame
 {
@@ -34,14 +35,9 @@ private:
 
 	Player* player{};
 	Villain* villain{};
-	Walls* wall1{};
-	Walls* wall2{};
-	Walls* wall3{};
-	Walls* wall4{};
-	Walls* wall5{};
-	Walls* wall6{};
-	Walls* wall7{};
-	Walls* wall8{};
+	Rectf GameScreen{ 50, 30, 1180, 740 };
+	std::vector<ScorePoint*> ScorePointPtr{};
+	std::vector<Walls*> WallsPtr{};
 	Color4f m_RectColor{ 1.f, 0.f, 0.f, 1.f };
 	
 };

@@ -7,6 +7,7 @@ public:
 
 	void Draw();
 	void CheckHit();
+	Rectf GetHitbox();
 private:
 	Rectf m_WallRange;
 	Color4f m_WallColor{ 1.f,1.f,1.f,1.f };
