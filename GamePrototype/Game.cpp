@@ -30,7 +30,7 @@ void Game::Initialize()
 	WallsPtr.push_back( new Walls(Rectf{ 403.f,45.f,50.f,100.f }));
 	WallsPtr.push_back( new Walls(Rectf{ 700.f,100.f,30.f,200.f }));
 	WallsPtr.push_back( new Walls(Rectf{ 750.f,500.f,50.f,200.f}));
-	WallsPtr.push_back(new Walls(Rectf{ 900.f,250.f,50.f,300.f }));
+	WallsPtr.push_back( new Walls(Rectf{ 900.f,250.f,50.f,300.f }));
 	
 	ScorePointPtr.reserve(10);
 	for (int ScorePointIndex{}; ScorePointIndex < 10; ScorePointIndex++)
@@ -43,19 +43,10 @@ void Game::Cleanup( )
 {
 	
 	delete player;
-	if (villain != nullptr)
-	{
-		delete villain;
-	}
 
 	for (int WallIndex{}; WallIndex < WallsPtr.size(); WallIndex++)
 	{
 		delete WallsPtr[WallIndex];
-	}
-	
-	for (int ScorePointIndex{}; ScorePointIndex < ScorePointPtr.size(); ScorePointIndex++)
-	{
-		delete ScorePointPtr[ScorePointIndex];
 	}
 }
 
@@ -83,11 +74,21 @@ void Game::Update( float elapsedSec )
 		player->UpdateLeft(elapsedSec);
 	}
 	
-
-	//if ( pStates[SDL_SCANCODE_LEFT] && pStates[SDL_SCANCODE_UP])
-	//{
-	//	std::cout << "Left and up arrow keys are down\n";
-	//}
+	if ( pStates[SDL_SCANCODE_X])
+	{
+		if (player->CheckHitWithEnemy(villain->GetHitbox()))
+		{
+			//villain = nullptr;
+			delete villain;
+		}
+	}
+	for (int ScorePointIndex{}; ScorePointIndex < ScorePointPtr.size(); ScorePointIndex++)
+	{
+		if (player->CheckHitWithPoints(ScorePointPtr[ScorePointIndex]->GetHitbox()))
+		{
+			delete ScorePointPtr[ScorePointIndex];
+		}
+	}
 }
 
 void Game::Draw( ) const
@@ -121,11 +122,7 @@ void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
 	switch ( e.keysym.sym )
 	{
 	case SDLK_x:
-		if (player->CheckHit(villain->GetHitbox()))
-		{
-			delete villain;
-			villain = nullptr;
-		}
+		
 		break;
 	}
 }

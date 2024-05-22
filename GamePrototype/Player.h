@@ -5,22 +5,24 @@ public:
 	Player();
 	~Player();
 
-	bool CheckHit(const Circlef enemy);
+	bool CheckHitWithEnemy(const Circlef enemy);
+	bool CheckHitWithPoints(const Rectf scorePoint);
 
 	void Draw();
 	void UpdateUp(float elapsedSec);
 	void UpdateDown(float elapsedSec);
 	void UpdateLeft(float elapsedSec);
 	void UpdateRight(float elapsedSec);
-
+	//void CheckHitWithWall(const std::vector<Walls*>& walls);
 	
 	
 private:
-	Circlef m_Player{};
-	Point2f m_CenterStartPoint{80, 60};
+	Rectf m_Player{};
+	Point2f m_PlayerBottom{80, 40};
+	float m_PlayerLength{ 40 };
 	Color4f m_Color{ 1.f, 1.f, 1.f, 1.f };
 	float m_Speed{};
-	float m_AmountOfLifes{};
+	float m_AmountOfLives{};
 };
 
 

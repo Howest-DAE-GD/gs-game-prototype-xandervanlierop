@@ -11,6 +11,8 @@ public:
 	void Update(float elapsedSec);
 	void CountPoints();
 
+	Rectf GetHitbox();
+
 	
 private:
 	void GenerateNewPos(const std::vector<Walls*>& walls, const Rectf& gameWindow);

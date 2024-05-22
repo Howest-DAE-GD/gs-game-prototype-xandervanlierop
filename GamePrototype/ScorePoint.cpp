@@ -34,6 +34,11 @@ void ScorePoint::CountPoints()
 
 }
 
+Rectf ScorePoint::GetHitbox()
+{
+	return Rectf(m_ScorePoint);
+}
+
 void ScorePoint::GenerateNewPos(const std::vector<Walls*>& walls, const Rectf& gameWindow)
 {
 	while (true)
