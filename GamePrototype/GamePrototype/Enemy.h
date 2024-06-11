@@ -9,7 +9,7 @@ class Enemy
 		void Update();
 		Circlef g_Enemy{};
 	private:
-		Point2f m_SpawnPos{};
+		Point2f m_Villain{};
 		int m_AmountOfEnemies{};
 		Color4f m_Color{ 1.f, 0.f, 0.f, 1.f };
 };

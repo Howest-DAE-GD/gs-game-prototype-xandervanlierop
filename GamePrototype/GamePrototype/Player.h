@@ -5,7 +5,7 @@ public:
 	Player();
 	~Player();
 
-	bool CheckHitWithEnemy(const Circlef enemy);
+	bool CheckHitWithEnemy(const Rectf enemy);
 	bool CheckHitWithPoints(const Rectf scorePoint);
 
 	void Draw();
@@ -13,8 +13,7 @@ public:
 	void UpdateDown(float elapsedSec);
 	void UpdateLeft(float elapsedSec);
 	void UpdateRight(float elapsedSec);
-	//void CheckHitWithWall(const std::vector<Walls*>& walls);
-	
+
 	
 private:
 	Rectf m_Player{};

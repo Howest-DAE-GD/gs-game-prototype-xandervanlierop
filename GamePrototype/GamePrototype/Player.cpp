@@ -20,7 +20,7 @@ Player::~Player()
 
 
 
-bool Player::CheckHitWithEnemy(const Circlef enemy)
+bool Player::CheckHitWithEnemy(const Rectf enemy)
 {
 	bool result{ utils::IsOverlapping(m_Player, enemy) };
 	return result;
@@ -36,7 +36,7 @@ void Player::Draw()
 {
 	
 	utils::SetColor(m_Color);
-	utils::DrawRect(m_Player);
+	utils::FillRect(m_Player);
 }
 
 void Player::UpdateUp(float elapsedSec)
@@ -58,6 +58,12 @@ void Player::UpdateRight(float elapsedSec)
 {
 	m_Player.left+= m_Speed * elapsedSec;
 }
+
+Rectf Player::GetHitbox()
+{
+	return Rectf(m_Player);
+}
+
 
 //void Player::xCheckHitWithWall(const std::vector<Walls*>& walls)
 //{

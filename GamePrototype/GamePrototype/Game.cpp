@@ -18,8 +18,12 @@ Game::~Game( )
 
 void Game::Initialize()
 {
+	VillainPtr.reserve(12);
+	for (int VillainIndex{}; VillainIndex < 10; VillainIndex++)
+	{
+		VillainPtr.push_back(new Villain());
+	}
 	player = new Player();
-	villain = new Villain();
 	
 
 	WallsPtr.reserve(8);
@@ -47,7 +51,25 @@ void Game::Cleanup( )
 	for (int WallIndex{}; WallIndex < WallsPtr.size(); WallIndex++)
 	{
 		delete WallsPtr[WallIndex];
+		WallsPtr[WallIndex] = nullptr;
 	}
+
+	for (int VillainIndex{}; VillainIndex < VillainPtr.size(); VillainIndex++)
+	{
+		if (VillainPtr[VillainIndex] != nullptr)
+		{
+			delete VillainPtr[VillainIndex];
+		}
+	}
+
+	for (int ScorePointIndex{}; ScorePointIndex < ScorePointPtr.size(); ScorePointIndex++)
+	{
+		if (ScorePointPtr[ScorePointIndex] != nullptr)
+		{
+			delete ScorePointPtr[ScorePointIndex];
+		}
+	}
+
 }
 
 void Game::Update( float elapsedSec )
@@ -74,19 +96,49 @@ void Game::Update( float elapsedSec )
 		player->UpdateLeft(elapsedSec);
 	}
 	
+	for (int WallIndex{}; WallIndex < WallsPtr.size(); WallIndex++)
+	{
+		if (WallsPtr[WallIndex]->IsOverlapping(player->GetHitbox()))
+		{
+			if (pStates[SDL_SCANCODE_UP])
+			{
+				player->UpdateDown(elapsedSec);
+			}
+			if (pStates[SDL_SCANCODE_DOWN])
+			{
+				player->UpdateUp(elapsedSec);
+			}
+			if (pStates[SDL_SCANCODE_RIGHT])
+			{
+				player->UpdateLeft(elapsedSec);
+			}
+			if (pStates[SDL_SCANCODE_LEFT])
+			{
+				player->UpdateRight(elapsedSec);
+			}
+		}
+	}
+
 	if ( pStates[SDL_SCANCODE_X])
 	{
-		if (player->CheckHitWithEnemy(villain->GetHitbox()))
+		for (int VillainIndex{}; VillainIndex < VillainPtr.size(); VillainIndex++)
 		{
-			//villain = nullptr;
-			delete villain;
+			if (VillainPtr[VillainIndex] != nullptr &&
+				player->CheckHitWithEnemy(VillainPtr[VillainIndex]->GetHitbox()))
+			{
+					delete VillainPtr[VillainIndex];
+					VillainPtr[VillainIndex] = nullptr;
+			}
+
 		}
 	}
 	for (int ScorePointIndex{}; ScorePointIndex < ScorePointPtr.size(); ScorePointIndex++)
 	{
-		if (player->CheckHitWithPoints(ScorePointPtr[ScorePointIndex]->GetHitbox()))
+		if (ScorePointPtr[ScorePointIndex] != nullptr && 
+			player->CheckHitWithPoints(ScorePointPtr[ScorePointIndex]->GetHitbox()))
 		{
 			delete ScorePointPtr[ScorePointIndex];
+			ScorePointPtr[ScorePointIndex] = nullptr;
 		}
 	}
 }
@@ -97,8 +149,11 @@ void Game::Draw( ) const
 	utils::SetColor(m_RectColor);
 	utils::DrawRect(GameScreen);
 
-	villain->Draw();
-
+	for (int VillainIndex{}; VillainIndex < VillainPtr.size(); VillainIndex++)
+	{
+		if(VillainPtr[VillainIndex]!= nullptr)
+			VillainPtr[VillainIndex]->Draw();
+	}
 	player->Draw();
 	
 	for (int WallIndex{}; WallIndex < WallsPtr.size(); WallIndex++)
@@ -108,7 +163,8 @@ void Game::Draw( ) const
 	
 	for (int ScorePointIndex{}; ScorePointIndex < ScorePointPtr.size(); ScorePointIndex++)
 	{
-		ScorePointPtr[ScorePointIndex]->Draw();
+		if(ScorePointPtr[ScorePointIndex]!= nullptr)
+			ScorePointPtr[ScorePointIndex]->Draw();
 	}
 }
 

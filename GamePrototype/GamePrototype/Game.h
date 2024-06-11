@@ -34,7 +34,7 @@ private:
 	void ClearBackground( ) const;
 
 	Player* player{};
-	Villain* villain{};
+	std::vector<Villain*> VillainPtr{};
 	Rectf GameScreen{ 50, 30, 1180, 740 };
 	std::vector<ScorePoint*> ScorePointPtr{};
 	std::vector<Walls*> WallsPtr{};
